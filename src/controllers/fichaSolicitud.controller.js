@@ -11,6 +11,7 @@ function agregarFicha(req, res) {
 
 
 
+
         Ficha.find({ nombre: parametros.nombre }, (err, nombreEncontrado) => {
             if (nombreEncontrado.length > 0) {
                 return res.status(500).send({ mensaje: "Ya Existe este estudiante" });
@@ -37,10 +38,6 @@ function agregarFicha(req, res) {
                                 modeloFicha.carrera = parametros.carrera;
                                 modeloFicha.generoDePoesia = parametros.generoDePoesia;
                                 modeloFicha.fechaDeInscripción = diaPedido;
-
-
-
-
 
                                 function calculaEntregaFines(diaPedido, diasPactados,) {
 
@@ -82,7 +79,7 @@ function agregarFicha(req, res) {
 
                                 }
 
-                                if (parametros.carnet.split("")[parametros.carnet.length - 1] == 1) {
+                                if (parametros.carnet.split("")[parametros.carnet.length - 1] == 1 && parametros.generoDePoesia == "Dramático") {
 
                                     const diaEntrega = calculaEntregaFines(diaPedido, 5,);
 
@@ -99,7 +96,7 @@ function agregarFicha(req, res) {
 
                                 }
 
-                                if (parametros.carnet.split("")[parametros.carnet.length - 1] == 3) {
+                                if (parametros.carnet.split("")[parametros.carnet.length - 1] == 3 && parametros.generoDePoesia == "Épico") {
 
                                     const diaEntrega = calculaEntregaFinMes(diaPedido, 0,);
 
@@ -114,9 +111,7 @@ function agregarFicha(req, res) {
                                     })
 
                                 }
-
-                                if (parametros.carnet.split("")[parametros.carnet.length - 1] == 9) {
-
+                                else {
 
 
                                     var viernes = new Date(diaPedido.getFullYear(), diaPedido.getMonth(), diaPedido.getDate());
@@ -134,8 +129,8 @@ function agregarFicha(req, res) {
                                         return res.status(200).send({ ficha: fichaGuardada });
                                     })
 
-                                }
 
+                                }
 
                             } else {
                                 return res.status(500).send({ mensaje: "el ultimo digito del carnet debe de ser 1, 3 o 9" });
@@ -154,9 +149,9 @@ function agregarFicha(req, res) {
 
 }
 
-function verFichas (req, res){
+function verFichas(req, res) {
     Ficha.find({}, (err, fichas) => {
-        return res.status(200).send({ fichas: fichas})
+        return res.status(200).send({ fichas: fichas })
     })
 }
 

@@ -8,10 +8,13 @@ const FichaSchema = new Schema({
   genero: String,
   telefono: String,
   fechaNacimiento: Date,
+  fechaNacimientoTxt: String,
   carrera: String,
   generoDePoesia: String,
-  fechaDeInscripción: Date,
+  fechaDeInscripcion: Date,
+  fechaDeInscripcionTxt: String,
   fechaDeDeclamacion: Date,
+  fechaDeDeclamacionTxt: String,
 });
 
 module.exports = mongoose.model("Ficha", FichaSchema);

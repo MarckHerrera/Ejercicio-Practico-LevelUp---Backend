@@ -7,7 +7,7 @@ function agregarFicha(req, res) {
     if (parametros.nombre && parametros.carnet
         && parametros.direccion && parametros.genero
         && parametros.telefono && parametros.fechaNacimiento
-        && parametros.carrera && parametros.generoDePoesia) {
+        && parametros.carrera && parametros.generoDePoesia ) {
 
 
 
@@ -52,22 +52,36 @@ function agregarFicha(req, res) {
                                 modeloFicha.direccion = parametros.direccion;
                                 modeloFicha.genero = parametros.genero;
                                 modeloFicha.telefono = parametros.telefono;
-                                modeloFicha.fechaNacimiento = parametros.fechaNacimiento;
+                                
                                 modeloFicha.carrera = parametros.carrera;
                                 modeloFicha.generoDePoesia = parametros.generoDePoesia;
-                                modeloFicha.fechaDeInscripción = diaPedido;
+                                modeloFicha.fechaDeInscripcion = diaPedido;
+                                modeloFicha.fechaDeInscripcionTxt = diaPedido.toLocaleDateString();
 
 
 
-                                const nacimiento = new Date(parametros.fechaNacimiento);
+                                
+
+                                var re = /-/gi;
+                                var str = parametros.fechaNacimiento;
+                                var newstr = str.replace(re, "/");
+                                
+
+                                const nacimiento = new Date(newstr);
+                                
+                                modeloFicha.fechaNacimiento = nacimiento;
+                                modeloFicha.fechaNacimientoTxt = nacimiento.toLocaleDateString();
+
                         const años = diaPedido.getFullYear() - nacimiento.getFullYear();
+
+                        
                         if (años < 17) {
                             return res.status(400).send({ mensaje: "Debe de tener mas de 17 años" });
                         } else {
 
-
+                            
                                 function calculaEntregaFines(diaPedido, diasPactados,) {
-
+                                    
                                     let diaPropuesto = new Date(diaPedido.getFullYear(), diaPedido.getMonth(), diaPedido.getDate());
 
                                     let i = 1;
@@ -105,12 +119,13 @@ function agregarFicha(req, res) {
                                     return diaPropuesto;
 
                                 }
-
+                                console.log("si")
                                 if (parametros.carnet.split("")[parametros.carnet.length - 1] == 1 && parametros.generoDePoesia == "Dramático") {
 
                                     const diaEntrega = calculaEntregaFines(diaPedido, 5,);
 
                                     modeloFicha.fechaDeDeclamacion = diaEntrega;
+                                    modeloFicha.fechaDeDeclamacionTxt = diaEntrega.toLocaleDateString();
 
 
 
@@ -126,6 +141,7 @@ function agregarFicha(req, res) {
                                     const diaEntrega = calculaEntregaFinMes(diaPedido, 0,);
 
                                     modeloFicha.fechaDeDeclamacion = diaEntrega;
+                                    modeloFicha.fechaDeDeclamacionTxt = diaEntrega.toLocaleDateString();
 
 
                                     modeloFicha.save((err, fichaGuardada) => {
@@ -135,7 +151,7 @@ function agregarFicha(req, res) {
                                         return res.status(200).send({ ficha: fichaGuardada });
                                     })
 
-                                } else if (parametros.carnet.split("")[parametros.carnet.length - 1] == 9) {
+                                } else if (parametros.carnet.split("")[parametros.carnet.length - 1] ) {
 
 
 
@@ -145,6 +161,7 @@ function agregarFicha(req, res) {
                                     viernes.setDate(viernes.getDate() + SumDay + 5);
 
                                     modeloFicha.fechaDeDeclamacion = viernes;
+                                    modeloFicha.fechaDeDeclamacionTxt = viernes.toLocaleDateString();
 
 
                                     modeloFicha.save((err, fichaGuardada) => {
@@ -169,6 +186,7 @@ function agregarFicha(req, res) {
         }
         )
     } else {
+        console.log("No") 
         return res.status(500).send({ mensaje: "Debe enviar los parametros obligatorios" })
     }
 

@@ -21,15 +21,11 @@ function agregarFicha(req, res) {
                         return res.status(500).send({ mensaje: "Carnet ya utilizado" });
                     } else {
 
-                        const letraA = parametros.carnet.slice(0, 1);
-
-                        if (letraA != "A" && letraA != "a") {
-                            return res.status(500).send({ mensaje: "El carnet debe tener una A o a, al principio" });
-                        } else {
-
                         if (parametros.carnet.length != 6) {
                             return res.status(500).send({ mensaje: "El carnet debe de tener 6 digitos" });
                         } else {
+                            console.log(parametros.carnet.split("")[parametros.carnet.length - 1])
+
                             if (parametros.carnet.split("")[parametros.carnet.length - 1] != 1 &&
                                 parametros.carnet.split("")[parametros.carnet.length - 1] != 3 &&
                                 parametros.carnet.split("")[parametros.carnet.length - 1] != 9 ) {
@@ -148,7 +144,6 @@ function agregarFicha(req, res) {
                         }
                     }
                     }
-                }
                 })
 
             }

@@ -7,6 +7,6 @@ const api = express.Router();
 
 /* Rutas */
 api.post('/solicitudFicha', controladorFicha.agregarFicha);
-/* api.get('/verFichas', controladorFicha.verFichas); */
+api.get('/verFichas', controladorFicha.verFichas);
 
 module.exports = api;

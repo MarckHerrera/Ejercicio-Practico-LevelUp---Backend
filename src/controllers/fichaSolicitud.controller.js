@@ -11,7 +11,6 @@ function agregarFicha(req, res) {
 
 
 
-
         Ficha.find({ nombre: parametros.nombre }, (err, nombreEncontrado) => {
             if (nombreEncontrado.length > 0) {
                 return res.status(500).send({ mensaje: "Ya Existe este estudiante" });
@@ -24,7 +23,6 @@ function agregarFicha(req, res) {
                         if (parametros.carnet.length != 6) {
                             return res.status(500).send({ mensaje: "El carnet debe de tener 6 digitos" });
                         } else {
-                            console.log(parametros.carnet.split("")[parametros.carnet.length - 1])
 
                             if (parametros.carnet.split("")[parametros.carnet.length - 1] != 1 &&
                                 parametros.carnet.split("")[parametros.carnet.length - 1] != 3 &&
@@ -45,6 +43,10 @@ function agregarFicha(req, res) {
                                 modeloFicha.carrera = parametros.carrera;
                                 modeloFicha.generoDePoesia = parametros.generoDePoesia;
                                 modeloFicha.fechaDeInscripción = diaPedido;
+
+
+
+
 
                                 function calculaEntregaFines(diaPedido, diasPactados,) {
 
@@ -117,8 +119,8 @@ function agregarFicha(req, res) {
                                         return res.status(200).send({ ficha: fichaGuardada });
                                     })
 
-                                }
-                                else {
+                                } else if (parametros.carnet.split("")[parametros.carnet.length - 1] == 9) {
+
 
 
                                     var viernes = new Date(diaPedido.getFullYear(), diaPedido.getMonth(), diaPedido.getDate());
@@ -135,7 +137,6 @@ function agregarFicha(req, res) {
 
                                         return res.status(200).send({ ficha: fichaGuardada });
                                     })
-
 
                                 }
 
@@ -155,9 +156,9 @@ function agregarFicha(req, res) {
 
 }
 
-function verFichas(req, res) {
+function verFichas (req, res){
     Ficha.find({}, (err, fichas) => {
-        return res.status(200).send({ fichas: fichas })
+        return res.status(200).send({ fichas: fichas})
     })
 }
 

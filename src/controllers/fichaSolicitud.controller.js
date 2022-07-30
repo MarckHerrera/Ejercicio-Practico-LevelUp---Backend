@@ -24,8 +24,15 @@ function agregarFicha(req, res) {
                         if (parametros.carnet.length != 6) {
                             return res.status(500).send({ mensaje: "El carnet debe de tener 6 digitos" });
                         } else {
+                            console.log(parametros.carnet.split("")[parametros.carnet.length - 1])
 
-                            if (parametros.carnet.split("")[parametros.carnet.length - 1] == "1" || "3" || "9") {
+                            if (parametros.carnet.split("")[parametros.carnet.length - 1] != 1 &&
+                                parametros.carnet.split("")[parametros.carnet.length - 1] != 3 &&
+                                parametros.carnet.split("")[parametros.carnet.length - 1] != 9 ) {
+                                return res.status(500).send({ mensaje: "el ultimo digito del carnet debe de ser 1, 3 o 9" });
+                            } else {
+                                
+                            
 
                                 const diaPedido = new Date(Date.now());
 
@@ -132,11 +139,10 @@ function agregarFicha(req, res) {
 
                                 }
 
-                            } else {
-                                return res.status(500).send({ mensaje: "el ultimo digito del carnet debe de ser 1, 3 o 9" });
-                            }
+                            
                             /* sdasda */
                         }
+                    }
                     }
                 })
 

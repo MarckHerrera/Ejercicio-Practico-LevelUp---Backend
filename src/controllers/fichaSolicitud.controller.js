@@ -15,11 +15,24 @@ function agregarFicha(req, res) {
             if (nombreEncontrado.length > 0) {
                 return res.status(500).send({ mensaje: "Ya Existe este estudiante" });
             } else {
+                
                 Ficha.find({ carnet: parametros.carnet }, (err, carnetEncontrado) => {
                     if (carnetEncontrado.length > 0) {
                         return res.status(500).send({ mensaje: "Carnet ya utilizado" });
                     } else {
 
+                        const tercer5 = parametros.carnet.slice(2, 3);
+
+                            if (tercer5 !== "5") {
+                                return res.status(400).send({ mensaje: "El tercer digito del carnet debe ser 5" });
+                              }else{
+
+                        const letraA = parametros.carnet.slice(0, 1);
+
+                            if (letraA != "A" && letraA != "a") {
+                                return res.status(500).send({ mensaje: "El carnet debe tener una A o a, al principio" });
+                            } else {
+                        
                         if (parametros.carnet.length != 6) {
                             return res.status(500).send({ mensaje: "El carnet debe de tener 6 digitos" });
                         } else {
@@ -46,6 +59,11 @@ function agregarFicha(req, res) {
 
 
 
+                                const nacimiento = new Date(parametros.fechaNacimiento);
+                        const años = diaPedido.getFullYear() - nacimiento.getFullYear();
+                        if (años < 17) {
+                            return res.status(400).send({ mensaje: "Debe de tener mas de 17 años" });
+                        } else {
 
 
                                 function calculaEntregaFines(diaPedido, diasPactados,) {
@@ -103,9 +121,7 @@ function agregarFicha(req, res) {
                                         return res.status(200).send({ ficha: fichaGuardada });
                                     })
 
-                                }
-
-                                if (parametros.carnet.split("")[parametros.carnet.length - 1] == 3 && parametros.generoDePoesia == "Épico") {
+                                } else if  (parametros.carnet.split("")[parametros.carnet.length - 1] == 3 && parametros.generoDePoesia == "Épico") {
 
                                     const diaEntrega = calculaEntregaFinMes(diaPedido, 0,);
 
@@ -137,7 +153,6 @@ function agregarFicha(req, res) {
 
                                         return res.status(200).send({ ficha: fichaGuardada });
                                     })
-
                                 }
 
                             
@@ -145,6 +160,9 @@ function agregarFicha(req, res) {
                         }
                     }
                     }
+                    }
+                }
+            }
                 })
 
             }

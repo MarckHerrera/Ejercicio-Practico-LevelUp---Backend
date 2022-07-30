@@ -1,0 +1,26 @@
+{
+  "name": "ejercicio-practico-levelup---backend",
+  "version": "1.0.0",
+  "description": "proyecto backend prueba tecnica",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarckHerrera/Ejercicio-Practico-LevelUp---Backend.git"
+  },
+  "author": "Marck Herrera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarckHerrera/Ejercicio-Practico-LevelUp---Backend/issues"
+  },
+  "homepage": "https://github.com/MarckHerrera/Ejercicio-Practico-LevelUp---Backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "mongoose": "^6.2.2"
+  }
+}
